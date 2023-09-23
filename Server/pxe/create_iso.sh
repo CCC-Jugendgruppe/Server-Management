@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo apt install wget git -y
+sudo apt install wget git genisoimage -y
 
 wget https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.1.0-amd64-DVD-1.iso
 
