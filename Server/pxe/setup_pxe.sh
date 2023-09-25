@@ -50,7 +50,7 @@ sudo cp /home/$SUDO_USER/Server-Management/Server/pxe/dhcpd.conf /etc/dhcp/
 
 sudo rm -f /etc/default/isc-dhcp-server
 
-sudo cp /home/$SUDO_USER/Server-Management/Server/isc-dhcp-server /etc/default/
+sudo cp /home/$SUDO_USER/Server-Management/Server/pxe/isc-dhcp-server /etc/default/
 
 sudo systemctl start isc-dhcp-server
 
