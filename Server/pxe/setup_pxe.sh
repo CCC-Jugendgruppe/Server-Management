@@ -56,7 +56,7 @@ sudo systemctl start isc-dhcp-server
 
 sudo mkdir /tftpboot/debian
 
-sudo mount /home/lhc/debian12.iso /mnt
+sudo mount /home/lhc/Server-Management/Server/pxe/Laptop-Management/preseed.iso /mnt -o loop
 
 sudo cp -r /mnt/* /tftpboot/debian
 

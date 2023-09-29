@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo apt install wget git genisoimage -y
+mk = "make"
+
+sudo apt install wget git genisoimage fakeroot $mk -y
 
 wget https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.1.0-amd64-DVD-1.iso
 
