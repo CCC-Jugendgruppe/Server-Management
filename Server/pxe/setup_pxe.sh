@@ -46,19 +46,19 @@ sudo systemctl restart tftpd-hpa
 
 sudo rm -f /etc/dhcp/dhcpd.conf
 
-sudo cp /home/$SUDO_USER/Server-Management/Server/pxe/dhcpd.conf /etc/dhcp/
+sudo cp /home/lhc/Server-Management/Server/pxe/dhcpd.conf /etc/dhcp/
 
 sudo rm -f /etc/default/isc-dhcp-server
 
-sudo cp /home/$SUDO_USER/Server-Management/Server/pxe/isc-dhcp-server /etc/default/
+sudo cp /home/lhc/Server-Management/Server/pxe/isc-dhcp-server /etc/default/
 
 sudo systemctl start isc-dhcp-server
 
 sudo mkdir /tftpboot/debian
 
-sudo mount /home/$SUDO_USER/debian12.iso /mnt
+sudo mount /home/lhc/debian12.iso /mnt
 
 sudo cp -r /mnt/* /tftpboot/debian
 
-sudo cp /home/$SUDO_USER/Server-Management/Server/pxe/default /tftpboot/pxelinux.cfg
+sudo cp /home/lhc/Server-Management/Server/pxe/default /tftpboot/pxelinux.cfg
 
