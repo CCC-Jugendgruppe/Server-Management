@@ -6,6 +6,3 @@ Wir möchten ein paar services in einem Proxmox Server hosten. Darunter sind fol
 * Ansible
 * Apt-Paket Cache
 
-### Todo:
-hier interface einstellen: https://github.com/CCC-Jugendgruppe/Server-Management/blob/main/Server/pxe/isc-dhcp-server
-hier ip sachen einstellen: https://github.com/CCC-Jugendgruppe/Server-Management/blob/main/Server/pxe/dhcpd.conf
