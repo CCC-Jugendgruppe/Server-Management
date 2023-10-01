@@ -1,23 +1,19 @@
 #!/bin/bash
 
-mk = "make"
+mk="make"
 
 sudo apt install wget git genisoimage fakeroot $mk -y
 
-wget https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.1.0-amd64-DVD-1.iso
-
-mv debian-12.1.0-amd64-DVD-1.iso debian12.iso
-
 git clone https://github.com/CCC-Jugendgruppe/Laptop-Management.git
 
-mv debian12.iso ./Laptop-Management/iso
+isopath="./Laptop-Management/iso"
 
-cd ./Laptop-Management
+if [ ! -f "$isopath/debian12.iso" ]; then
+    wget https://cdimage.debian.org/debian-cd/current/amd64/iso-dvd/debian-12.1.0-amd64-DVD-1.iso -O "$isopath/debian12.iso"
+fi
 
-rm -rf Management
+cd "$isopath"
 
-cd ./iso
+rm -rf ../Management
 
-make setup
-
-make build
+$mk setup build
