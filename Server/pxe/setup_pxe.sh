@@ -85,7 +85,7 @@ echo -e " ${GREEN} DONE! ${NC} \n"
 echo -e " -=- Setting up PXE... -=- \n"
 
 echo -e "Mounting ISO..."
-mount -o loop Laptop-Management/preseed-debian-12.iso /mnt
+mount -o loop Laptop-Management/iso/preseed-debian-12.iso /mnt
 mkdir /tftpboot/debian
 
 echo -e "Copying ISO contents to tftpboot..."
