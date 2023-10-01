@@ -63,11 +63,11 @@ systemctl restart tftpd-hpa
 echo -e " ${GREEN} DONE! ${NC} \n"
 echo -e " -=- Configuring DHCP Server... -=- \n"
 
-echo -e "Overwriting dhcpcd configuration..."
+echo -e "Overwriting dhcpd configuration..."
 echo -e "Please specify 'next-server' (IP of PXE server, aka this vm): "
 read next_server
 [ -z "$next_server" ] && exit 1
-cp -v ./dhcpcd.conf /etc/dhcp/dhcpcd.conf
+cp -v ./dhcpd.conf /etc/dhcp/dhcpd.conf
 
 echo -e "Overwriting isc-dhcp-server configuration..."
 echo -e "Please specify the interface to use for DHCP: "
