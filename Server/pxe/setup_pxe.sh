@@ -85,7 +85,7 @@ echo -e " ${GREEN} DONE! ${NC} \n"
 echo -e " -=- Setting up PXE... -=- \n"
 
 echo -e "Mounting ISO..."
-mount -o loop Laptop-Management/preseed.iso /mnt
+mount -o loop Laptop-Management/preseed-debian-12.iso /mnt
 mkdir /tftpboot/debian
 
 echo -e "Copying ISO contents to tftpboot..."
@@ -98,3 +98,6 @@ echo -e "Copying PXE configuration..."
 cp -v ./default /tftpboot/pxelinux.cfg/
 
 echo -e " ${GREEN} DONE! ${NC} \n"
+
+echo -e " -=- PXE Server Setup Complete! -=- \n"
+echo -e " => Please see wiki file for instructions for further configs.\n\n"

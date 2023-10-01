@@ -2,7 +2,7 @@
 
 mk="make"
 
-sudo apt install syslinux-common ufw tftpd-hpa isc-dhcp-server wget git genisoimage fakeroot $mk -y
+sudo apt install syslinux-efi pxelinux syslinux syslinux-common ufw tftpd-hpa isc-dhcp-server wget git genisoimage fakeroot $mk -y
 
 git clone https://github.com/CCC-Jugendgruppe/Laptop-Management.git
 

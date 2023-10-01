@@ -1,7 +1,7 @@
 UI menu.c32
 LABEL Custom Debian 
         MENU LABEL Debian
-        KERNEL debian/install.amd/vmlinux
+        KERNEL debian/install.amd/vmlinuz
                 append initrd=debian/install.amd/initrd.gz
         TEXT HELP
                 The custom debian install!

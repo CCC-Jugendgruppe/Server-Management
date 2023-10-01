@@ -1,8 +1,47 @@
 = Informationen =
 
+alles muss mit root ausgeführt werden. was anderes ist meiner meinung nach etwas dumm haha. in den skripten steht überall sudo. warum dann nicht gleich root?
+
 *BITTE DINGE ZU VERÄNDERN GUT KENNZEICHNEN!!!*
 
 == wtf ist 'next-server' in der dhcpd.conf? ==
 [[http://wiki.r1soft.com/display/CDP3/Configuring+DHCP+Server+on+Linux+%28ISC+DHCPD%29|Hier ist das als 'note']]
 
 
+== Configurationen ==
+
+Es gibt 2 Dateien, die editiert werden müssen.
+
+=== /etc/dhcp/dhcpd.conf ===
+
+Es kann sein, dass hier bei dem feld `next-server` eine falsche IP steht. Diese ist standardmäßig auf `10.23.42.152`, muss aber der des Servers entsprechen.
+
+wenn bei sich zu hause gearbeitet wird, müssen alle IPs in der datei angepasst werden. in vim mit `:%s/10.23.42/192.168.122/g` (bei mir)
+
+=== /etc/default/isc-dhcp-server ===
+
+In der vorletzten Zeile steht `INTERFACESv4="eth0"`, hier muss das interface eingetragen werden, mit dem die vm ins netz geht (logisch).
+
+=== service neustarten ===
+
+wow hier gibt es so viel zu erklären. da es (leider) ein systemd system ist, geht das mit `systemctl restart isc-dhcp-server.service`.
+
+
+== weitere probleme die ich so habe == 
+
+die preseed iso war in dem skript vornerein schon falsch benannt (preseed.iso statt preseed-debian-12.iso). das hat die auswirkung, dass die dateien dann nicht gemountet werden können und der die pxe sachen nicht distributen kann (duh)
+
+beim pxe booten kommt "NBP filename is syslinux.efi" und "NBP filesize is 0 Bytes". das macht, dass er nicht hochfahren kann.
+
+
+*warum tf war das paket syslinux nicht installiert?????*
+*und warum pxelinux auch nicht*
+*und warum syslinux-efi auch nich*
+
+
+
+== weitere dinge ==
+
+laut [[https://github.com/rhboot/shim/issues/111#issuecomment-522791605|dem hier]] ist das ein problem, dass er die grub executable nicht findet. das tianocore logo ist nicht wichtig?, da die error message bei OP nur 'TFTP Error' ist (glaube ich)
+
+wenn man keine option bootfile-name angibt, wird pxelinux.0 genommen
