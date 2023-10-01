@@ -1,0 +1,8 @@
+= Informationen =
+
+*BITTE DINGE ZU VERÄNDERN GUT KENNZEICHNEN!!!*
+
+== wtf ist 'next-server' in der dhcpd.conf? ==
+[[http://wiki.r1soft.com/display/CDP3/Configuring+DHCP+Server+on+Linux+%28ISC+DHCPD%29|Hier ist das als 'note']]
+
+

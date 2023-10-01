@@ -64,9 +64,16 @@ echo -e " ${GREEN} DONE! ${NC} \n"
 echo -e " -=- Configuring DHCP Server... -=- \n"
 
 echo -e "Overwriting dhcpcd configuration..."
+echo -e "Please specify 'next-server' (IP of PXE server, aka this vm): "
+read next_server
+[ -z "$next_server" ] && exit 1
 cp -v ./dhcpcd.conf /etc/dhcp/dhcpcd.conf
 
 echo -e "Overwriting isc-dhcp-server configuration..."
+echo -e "Please specify the interface to use for DHCP: "
+read interface
+[ -z "$interface" ] && exit 1
+sed -i "s/INTERFACESv4=\"\"/INTERFACESv4=\"$interface\"/g" ./isc-dhcp-server
 cp -v ./isc-dhcp-server /etc/default/isc-dhcp-server
 
 echo -e "Restarting isc-dhcp-server..."
