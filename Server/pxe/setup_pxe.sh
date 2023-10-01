@@ -5,6 +5,9 @@ echo -e " -=- Variable Setup... -=- \n"
 GREEN='\033[0;32m'
 NC='\033[0m' # No Color
 
+DEFAULT_NEXT_SERVER="10.23.42.152"
+DEFAULT_INTERFACE="eth0"
+
 tftpd_content=$(cat <<EOL
 TFTP_USERNAME="tftp"
 TFTP_DIRECTORY="/tftpboot"
@@ -64,17 +67,15 @@ echo -e " ${GREEN} DONE! ${NC} \n"
 echo -e " -=- Configuring DHCP Server... -=- \n"
 
 echo -e "Overwriting dhcpd configuration..."
-echo -e "Please specify 'next-server' (IP of PXE server, aka this vm): "
+echo -e "Please specify 'next-server' (IP of PXE server, default $DEFAULT_NEXT_SERVER): "
 read next_server
-[ -z "$next_server" ] && exit 1
-sed -i "s/NEXT_SERVER_IP/$next_server/g" ./dhcpd.conf
+[ ! -z "$next_server" ] && sed -i "s/$DEFAULT_NEXT_SERVER/$next_server/g" ./dhcpd.conf
 cp -v ./dhcpd.conf /etc/dhcp/dhcpd.conf
 
 echo -e "Overwriting isc-dhcp-server configuration..."
-echo -e "Please specify the interface to use for DHCP: "
+echo -e "Please specify the interface to use for DHCP (default $DEFAULT_INTERFACE): "
 read interface
-[ -z "$interface" ] && exit 1
-sed -i "s/INTERFACESv4=\"\"/INTERFACESv4=\"$interface\"/g" ./isc-dhcp-server
+[ ! -z "$interface" ] && sed -i "s/$DEFAULT_INTERFACE/$interface/g"./isc-dhcp-server
 cp -v ./isc-dhcp-server /etc/default/isc-dhcp-server
 
 echo -e "Restarting isc-dhcp-server..."
