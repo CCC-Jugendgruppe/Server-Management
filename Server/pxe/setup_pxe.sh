@@ -1,31 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-echo "Update"
-sudo apt update && sudo apt upgrade -y
+echo " -=- Variable Setup... -=- \n"
 
-echo "Pakete installieren"
-sudo apt install syslinux-common syslinux-efi isc-dhcp-server tftpd-hpa ufw -y
-
-echo "stoppe isc-dhcp-server service"
-sudo systemctl stop isc-dhcp-server
-
-echo "erstelle tftpboot Verzeichnis"
-sudo mkdir /tftpboot
-
-cd /usr/lib/syslinux/modules/efi64/
-
-echo "kopiere ldlinux.e64"
-sudo cp ldlinux.e64 /tftpboot
-
-sudo cp {libutil.c32,menu.c32} /tftpboot
-
-cd /usr/lib/SYSLINUX.EFI/efi64
-
-sudo cp syslinux.efi /tftpboot/
-
-cd /tftpboot
-
-sudo mkdir pxelinux.cfg
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
 
 tftpd_content=$(cat <<EOL
 TFTP_USERNAME="tftp"
@@ -35,30 +13,71 @@ TFTP_OPTIONS="--secure"
 EOL
 )
 
-echo "$tftpd_content" | sudo tee /etc/default/tftpd-hpa > /dev/null
+echo " -=- OS Setup... -=- \n"
 
-echo "Udp in der Firewall erlauben"
-sudo ufw allow 69/udp
+echo "Updating OS..."
+apt update -y > /dev/null
 
-sudo ufw enable
+echo "Upgrading OS..."
+apt upgrade -y > /dev/null
 
-sudo systemctl restart tftpd-hpa
+echo " -=- Configuring PXE Server... -=- \n"
 
-sudo rm -f /etc/dhcp/dhcpd.conf
+echo "Stopping Service..."
+systemctl stop isc-dhcp-server
 
-sudo cp /home/lhc/Server-Management/Server/pxe/dhcpd.conf /etc/dhcp/
+echo "Creating tftpboot directory..."
+mkdir /tftpboot
 
-sudo rm -f /etc/default/isc-dhcp-server
+echo "Copying EFI modules..."
+cp -v /usr/lib/syslinux/modules/efi64/{ldlinux.e64,libutil.c32,menu.c32} /tftpboot
 
-sudo cp /home/lhc/Server-Management/Server/pxe/isc-dhcp-server /etc/default/
+echo "Copying EFI binaries..."
+cp -v /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi /tftpboot
 
-sudo systemctl start isc-dhcp-server
+echo "Creating pxelinux.cfg directory..."
+mkdir /tftpboot/pxelinux.cfg
 
-sudo mkdir /tftpboot/debian
+echo "Configuring TFTPD..."
 
-sudo mount /home/lhc/Server-Management/Server/pxe/Laptop-Management/preseed.iso /mnt -o loop
+echo "$tftpd_content" > /etc/default/tftpd-hpa
 
-sudo cp -r /mnt/* /tftpboot/debian
+echo " -=- Setting up Firewall... -=- \n"
 
-sudo cp /home/lhc/Server-Management/Server/pxe/default /tftpboot/pxelinux.cfg
+echo "Allowing UDP in firewall..."
+ufw allow 69/udp
 
+echo "Allowing SSH in firewall..."
+ufw allow 22/tcp
+
+echo "Enabling firewall..."
+ufw enable
+
+echo "restarting tftpd-hpa..."
+systemctl restart tftpd-hpa
+
+echo " -=- Configuring DHCP Server... -=- \n"
+
+echo "Overwriting dhcpcd configuration..."
+cp -v ./dhcpcd.conf /etc/dhcp/dhcpcd.conf
+
+echo "Overwriting isc-dhcp-server configuration..."
+cp -v ./isc-dhcp-server /etc/default/isc-dhcp-server
+
+echo "Restarting isc-dhcp-server..."
+systemctl restart isc-dhcp-server
+
+echo " -=- Setting up PXE... -=- \n"
+
+echo "Mounting ISO..."
+mount -o loop Laptop-Management/preseed.iso /mnt
+mkdir /tftpboot/debian
+
+echo "Copying ISO contents to tftpboot..."
+cp  -v -r /mnt/* /tftpboot/debian
+
+echo "Unmounting ISO..."
+umount /mnt
+
+echo "Copying PXE configuration..."
+cp -v ./default /tftpboot/pxelinux.cfg/
