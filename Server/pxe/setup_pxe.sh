@@ -13,6 +13,8 @@ TFTP_OPTIONS="--secure"
 EOL
 )
 
+echo " ${GREEN} DONE! ${NC} \n"
+
 echo " -=- OS Setup... -=- \n"
 
 echo "Updating OS..."
@@ -21,6 +23,7 @@ apt update -y > /dev/null
 echo "Upgrading OS..."
 apt upgrade -y > /dev/null
 
+echo " ${GREEN} DONE! ${NC} \n"
 echo " -=- Configuring PXE Server... -=- \n"
 
 echo "Stopping Service..."
@@ -42,6 +45,7 @@ echo "Configuring TFTPD..."
 
 echo "$tftpd_content" > /etc/default/tftpd-hpa
 
+echo " ${GREEN} DONE! ${NC} \n"
 echo " -=- Setting up Firewall... -=- \n"
 
 echo "Allowing UDP in firewall..."
@@ -56,6 +60,7 @@ ufw enable
 echo "restarting tftpd-hpa..."
 systemctl restart tftpd-hpa
 
+echo " ${GREEN} DONE! ${NC} \n"
 echo " -=- Configuring DHCP Server... -=- \n"
 
 echo "Overwriting dhcpcd configuration..."
@@ -67,6 +72,7 @@ cp -v ./isc-dhcp-server /etc/default/isc-dhcp-server
 echo "Restarting isc-dhcp-server..."
 systemctl restart isc-dhcp-server
 
+echo " ${GREEN} DONE! ${NC} \n"
 echo " -=- Setting up PXE... -=- \n"
 
 echo "Mounting ISO..."
@@ -81,3 +87,5 @@ umount /mnt
 
 echo "Copying PXE configuration..."
 cp -v ./default /tftpboot/pxelinux.cfg/
+
+echo " ${GREEN} DONE! ${NC} \n"
