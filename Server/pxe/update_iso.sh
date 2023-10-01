@@ -1,6 +1,6 @@
 #!/bin/bash
 
-new_name = "$RANDOM"
+new_name = "$(date "+%F_%H_%M_%S").iso"
 
 cd ./Laptop-Management/
 
