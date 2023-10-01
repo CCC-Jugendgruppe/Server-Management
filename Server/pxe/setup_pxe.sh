@@ -67,6 +67,7 @@ echo -e "Overwriting dhcpd configuration..."
 echo -e "Please specify 'next-server' (IP of PXE server, aka this vm): "
 read next_server
 [ -z "$next_server" ] && exit 1
+sed -i "s/NEXT_SERVER_IP/$next_server/g" ./dhcpd.conf
 cp -v ./dhcpd.conf /etc/dhcp/dhcpd.conf
 
 echo -e "Overwriting isc-dhcp-server configuration..."
