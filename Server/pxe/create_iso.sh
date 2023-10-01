@@ -2,7 +2,7 @@
 
 mk="make"
 
-sudo apt install wget git genisoimage fakeroot $mk -y
+sudo apt install ufw tftp-hpa wget git genisoimage fakeroot $mk -y
 
 git clone https://github.com/CCC-Jugendgruppe/Laptop-Management.git
 
