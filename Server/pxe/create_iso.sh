@@ -2,7 +2,7 @@
 
 mk="make"
 
-sudo apt install ufw tftp-hpa wget git genisoimage fakeroot $mk -y
+sudo apt install ufw tftpd-hpa isc-dhcp-server wget git genisoimage fakeroot $mk -y
 
 git clone https://github.com/CCC-Jugendgruppe/Laptop-Management.git
 
