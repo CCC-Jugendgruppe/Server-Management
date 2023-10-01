@@ -22,7 +22,7 @@ wenn bei sich zu hause gearbeitet wird, müssen alle IPs in der datei angepasst 
 
 In der vorletzten Zeile steht `INTERFACESv4="eth0"`, hier muss das interface eingetragen werden, mit dem die vm ins netz geht (logisch).
 
-=== service neustarten ===
+== service neustarten ==
 
 wow hier gibt es so viel zu erklären. da es (leider) ein systemd system ist, geht das mit `systemctl restart isc-dhcp-server.service`.
 
@@ -45,3 +45,7 @@ beim pxe booten kommt "NBP filename is syslinux.efi" und "NBP filesize is 0 Byte
 laut [[https://github.com/rhboot/shim/issues/111#issuecomment-522791605|dem hier]] ist das ein problem, dass er die grub executable nicht findet. das tianocore logo ist nicht wichtig?, da die error message bei OP nur 'TFTP Error' ist (glaube ich)
 
 wenn man keine option bootfile-name angibt, wird pxelinux.0 genommen
+
+== letzte schritte (hoffentlich) ==
+
+UI oben aendern bei der default in pxeboot.cfg
