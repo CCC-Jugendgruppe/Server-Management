@@ -97,6 +97,9 @@ umount /mnt
 echo -e "Copying PXE configuration..."
 cp -v ./default /tftpboot/pxelinux.cfg/
 
+echo -e "Copying syslinux.efi..."
+cp -v /usr/lib/SYSLINUX.EFI/efi64/syslinux.efi /tftpboot/
+
 echo -e " ${GREEN} DONE! ${NC} \n"
 
 echo -e " -=- PXE Server Setup Complete! -=- \n"
