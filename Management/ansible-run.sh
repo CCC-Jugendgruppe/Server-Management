@@ -1,6 +1,7 @@
 #!/bin/sh
 
-HOSTS="hosts"
-FILE="laptop.yml"
+# use default values, if not specified by `HOSTS=file bash ansible-run ...`
+: ${HOSTS:="hosts"}
+: ${FILE:="laptop.yml"}
 
-ansible-playbook -i $HOSTS $FILE --tasks $@
+ansible-playbook $FILE -i $HOSTS --tags "$@"
