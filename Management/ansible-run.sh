@@ -6,7 +6,8 @@
 
 EXTRA=''
 
-[[ -z $BECOME ]] && EXTRA='--ask-become-pass'
+[[ ! -z $BECOME ]] && EXTRA='--ask-become-pass'
+echo $EXTRA
 
 # run command to execute playbook
 
