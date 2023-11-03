@@ -21,6 +21,11 @@
     - role: backup
       tags:
         - backup
+
     - role: copy_proxy
       tags:
         - copy_proxy
+  
+    - role: pub_ssh_key
+      tags:
+        - pub_ssh_key
