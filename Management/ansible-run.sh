@@ -4,4 +4,10 @@
 : ${HOSTS:="hosts"}
 : ${FILE:="laptop.yml"}
 
-ansible-playbook $FILE -i $HOSTS --tags "$@"
+EXTRA=''
+
+[[ -z $BECOME ]] && EXTRA='--ask-become-pass'
+
+# run command to execute playbook
+
+ansible-playbook $FILE -i $HOSTS $EXTRA --tags "$@" 
