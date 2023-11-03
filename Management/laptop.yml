@@ -6,9 +6,9 @@
   become: true
 
   roles:
-    - role: updates
+    - role: update
       tags:
-        - updates
+        - update
 
     - role: install
       tags:
