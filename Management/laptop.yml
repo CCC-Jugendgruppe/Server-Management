@@ -3,7 +3,6 @@
   hosts: debian_laptops
   remote_user: chaos
   gather_facts: false
-  become: true
 
   roles:
     - role: update
